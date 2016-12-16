@@ -1,4 +1,4 @@
-FROM node:0.12.14
+FROM node:boron
 MAINTAINER Adrian Mejia <https://github.com/amejiarosario/meanshop>
 
 RUN mkdir /meanshop

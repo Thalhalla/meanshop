@@ -1,5 +1,4 @@
 #!groovy
-git credentialsId: 'thalhallajenkins-github', url: 'https://github.com/Thalhalla/meanshop.git'
 
 node('node') {
 
@@ -10,7 +9,7 @@ node('node') {
 
        stage 'Checkout'
 
-            checkout scm
+            git credentialsId: 'thalhallajenkins-github', url: 'https://github.com/Thalhalla/meanshop.git'
 
        stage 'Test'
 

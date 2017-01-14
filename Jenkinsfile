@@ -3,13 +3,14 @@
 node('master') {
 
 
+    git credentialsId: 'thalhallajenkins-github', url: 'https://github.com/Thalhalla/meanshop.git'
     currentBuild.result = "SUCCESS"
 
     try {
 
        stage 'Checkout'
 
-            git credentialsId: 'thalhallajenkins-github', url: 'https://github.com/Thalhalla/meanshop.git'
+            checkout scm
 
        stage 'Test'
 

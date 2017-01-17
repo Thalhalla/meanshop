@@ -27,7 +27,7 @@ export NVM_DIR="/var/jenkins_home/.nvm"
 source "$NVM_DIR/nvm.sh"
 npm prune
 npm install
-npm install -g bower grunt-cli
+npm install -g bower grunt-cli phantomjs
 '''
 
       }

@@ -23,7 +23,7 @@ node {
 export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export NVM_DIR="/var/jenkins_home/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+source "$NVM_DIR/nvm.sh"
 npm prune
 npm install
 export DISPLAY=:99.0

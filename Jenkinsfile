@@ -19,6 +19,7 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
+            sh "mkdir -p ${WORKSPACE}/data/db"
             sh "mongod --pidfilepath ${WORKSPACE}/mongopid --dbpath ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
 export PATH="$PATH:$HOME/.rvm/bin"

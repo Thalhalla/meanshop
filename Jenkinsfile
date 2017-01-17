@@ -33,7 +33,7 @@ node {
       }
        stage('Build Docker') {
 
-            echo "./dockerBuild.sh"'
+            echo "./dockerBuild.sh"
 
       }
        stage('Deploy') {

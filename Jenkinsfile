@@ -31,16 +31,16 @@ node {
       }
        stage('Build Docker') {
 
-            sh './dockerBuild.sh'
+            sh 'echo "./dockerBuild.sh"'
 
       }
        stage('Deploy') {
 
             echo 'Push to Repo'
-            sh './dockerPushToRepo.sh'
+            sh 'echo "./dockerPushToRepo.sh"'
 
             echo 'ssh to web server and tell it to pull new image'
-            sh 'echo ssh deploy@xxxxx.xxxxx.com running/xxxxxxx/dockerRun.sh'
+            sh 'echo ssh builder@balder.thalhalla.com /usr/local/bin/dockerRun.sh'
 
       }
        stage('Cleanup') {

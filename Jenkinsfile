@@ -9,7 +9,6 @@ node {
     env.NODE_ENV = "test"
     env.NVM_DIR="/var/jenkins_home/.nvm"
     env.PATH="$PATH:$HOME/.rvm/bin"
-    env.DISPLAY=:99.0
 
     try {
 
@@ -66,6 +65,7 @@ node {
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
+            export DISPLAY=:99.0
             VFB_WHD=${XVFB_WHD:-1280x720x16}
             Xvfb :99 -ac -screen 0 $XVFB_WHD &
             xvfb=$!

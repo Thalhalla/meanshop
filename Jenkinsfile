@@ -21,7 +21,6 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
-            sh "mkdir -p ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
@@ -35,10 +34,10 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
-            sh "mkdir -p ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
+            rvm list
             gem install sass
             '''
       }
@@ -46,7 +45,6 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
-            sh "mkdir -p ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"

@@ -19,19 +19,21 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
-            sh 'npm prune'
-            sh 'npm install'
-            sh 'export DISPLAY=:99.0'
-            sh 'sh -e /etc/init.d/xvfb start'
-            sh 'npm install -g bower grunt-cli'
-            sh 'gem install sass'
-            sh 'bower install'
-            sh 'grunt test'
+            sh '''#!/bin/bash -l
+            npm prune
+            npm install
+            export DISPLAY=:99.0
+            sh -e /etc/init.d/xvfb start
+            npm install -g bower grunt-cli
+            gem install sass
+            bower install
+            grunt test
+            '''
 
       }
        stage('Build Docker') {
 
-            sh 'echo "./dockerBuild.sh"'
+            echo "./dockerBuild.sh"'
 
       }
        stage('Deploy') {

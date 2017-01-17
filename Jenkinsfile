@@ -24,14 +24,12 @@ node {
 
             sh "mkdir -p ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
-            echo "NODE_ENV $NODE_ENV"
-            echo "NVM_DIR $NVM_DIR"
-            echo "PATH $PATH"
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
             npm prune
+            npm install -g yo bower grunt-cli
+            npm install -g phantomjs-prebuilt --save-dev
             npm install
-            npm install -g bower grunt-cli phantomjs
             '''
       }
        stage('Gem Install') {
@@ -104,6 +102,8 @@ node {
     catch (err) {
 
         currentBuild.result = "FAILURE"
+
+        sh "kill -HUP `cat ${WORKSPACE}/mongopid`"
 
         throw err
     }

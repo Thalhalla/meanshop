@@ -6,6 +6,10 @@ node {
     git credentialsId: 'thalhallajenkins-github', url: 'https://github.com/Thalhalla/meanshop.git'
     currentBuild.result = "SUCCESS"
 
+    env.NODE_ENV = "test"
+    env.NVM_DIR="/var/jenkins_home/.nvm"
+    env.PATH="$PATH:$HOME/.rvm/bin"
+
     try {
 
        stage('Checkout') {
@@ -15,15 +19,15 @@ node {
       }
        stage('NPM Install') {
 
-            env.NODE_ENV = "test"
 
             print "Environment will be : ${env.NODE_ENV}"
 
             sh "mkdir -p ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
-export PATH="$PATH:$HOME/.rvm/bin"
+echo "NODE_ENV $NODE_ENV"
+echo "NVM_DIR $NVM_DIR"
+echo "PATH $PATH"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-export NVM_DIR="/var/jenkins_home/.nvm"
 source "$NVM_DIR/nvm.sh"
 npm prune
 npm install

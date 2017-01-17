@@ -63,9 +63,9 @@ node {
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
-            export DISPLAY=:99.0
-            VFB_WHD=${XVFB_WHD:-1280x720x16}
-            Xvfb :99 -ac -screen 0 $XVFB_WHD &
+            export DISPLAY=:99
+            XVFB_WHD=${XVFB_WHD:-1280x720x16}
+            Xvfb :99 -ac -screen 0 $XVFB_WHD -nolisten tcp &
             xvfb=$!
             grunt test
             '''

@@ -9,6 +9,7 @@ node {
     env.NODE_ENV = "test"
     env.NVM_DIR="/var/jenkins_home/.nvm"
     env.PATH="$PATH:$HOME/.rvm/bin"
+    env.DISPLAY=:99.0
 
     try {
 
@@ -19,52 +20,41 @@ node {
       }
        stage('NPM Install') {
 
-
             print "Environment will be : ${env.NODE_ENV}"
 
             sh "mkdir -p ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
-echo "NODE_ENV $NODE_ENV"
-echo "NVM_DIR $NVM_DIR"
-echo "PATH $PATH"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-source "$NVM_DIR/nvm.sh"
-npm prune
-npm install
-npm install -g bower grunt-cli phantomjs
-'''
-
+            echo "NODE_ENV $NODE_ENV"
+            echo "NVM_DIR $NVM_DIR"
+            echo "PATH $PATH"
+            [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+            source "$NVM_DIR/nvm.sh"
+            npm prune
+            npm install
+            npm install -g bower grunt-cli phantomjs
+            '''
       }
        stage('Gem Install') {
 
-            env.NODE_ENV = "test"
-
             print "Environment will be : ${env.NODE_ENV}"
 
             sh "mkdir -p ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
-export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-export NVM_DIR="/var/jenkins_home/.nvm"
-source "$NVM_DIR/nvm.sh"
-gem install sass
-'''
-
+            [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+            source "$NVM_DIR/nvm.sh"
+            gem install sass
+            '''
       }
        stage('Bower Install') {
 
-            env.NODE_ENV = "test"
-
             print "Environment will be : ${env.NODE_ENV}"
 
             sh "mkdir -p ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
-export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-export NVM_DIR="/var/jenkins_home/.nvm"
-source "$NVM_DIR/nvm.sh"
-bower install
-'''
+            [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+            source "$NVM_DIR/nvm.sh"
+            bower install
+            '''
 
       }
        stage('Test') {
@@ -76,18 +66,13 @@ bower install
             sh "mkdir -p ${WORKSPACE}/data/db"
             sh "mongod --quiet --fork --noauth --pidfilepath ${WORKSPACE}/mongopid --logpath ${WORKSPACE}/data/log --dbpath ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
-export PATH="$PATH:$HOME/.rvm/bin"
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-export NVM_DIR="/var/jenkins_home/.nvm"
-source "$NVM_DIR/nvm.sh"
-export DISPLAY=:99.0
-# sh -e /etc/init.d/xvfb start
-VFB_WHD=${XVFB_WHD:-1280x720x16}
-# Start Xvfb
-Xvfb :99 -ac -screen 0 $XVFB_WHD &
-xvfb=$!
-grunt test
-'''
+            [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+            source "$NVM_DIR/nvm.sh"
+            VFB_WHD=${XVFB_WHD:-1280x720x16}
+            Xvfb :99 -ac -screen 0 $XVFB_WHD &
+            xvfb=$!
+            grunt test
+            '''
             sh "kill -HUP `cat ${WORKSPACE}/mongopid`"
 
       }

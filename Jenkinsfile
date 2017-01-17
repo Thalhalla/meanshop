@@ -13,6 +13,56 @@ node {
             checkout scm
 
       }
+       stage('NPM Install') {
+
+            env.NODE_ENV = "test"
+
+            print "Environment will be : ${env.NODE_ENV}"
+
+            sh "mkdir -p ${WORKSPACE}/data/db"
+            sh '''#!/bin/bash -l
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export NVM_DIR="/var/jenkins_home/.nvm"
+source "$NVM_DIR/nvm.sh"
+npm prune
+npm install
+npm install -g bower grunt-cli
+'''
+
+      }
+       stage('Gem Install') {
+
+            env.NODE_ENV = "test"
+
+            print "Environment will be : ${env.NODE_ENV}"
+
+            sh "mkdir -p ${WORKSPACE}/data/db"
+            sh '''#!/bin/bash -l
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export NVM_DIR="/var/jenkins_home/.nvm"
+source "$NVM_DIR/nvm.sh"
+gem install sass
+'''
+
+      }
+       stage('Bower Install') {
+
+            env.NODE_ENV = "test"
+
+            print "Environment will be : ${env.NODE_ENV}"
+
+            sh "mkdir -p ${WORKSPACE}/data/db"
+            sh '''#!/bin/bash -l
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+export NVM_DIR="/var/jenkins_home/.nvm"
+source "$NVM_DIR/nvm.sh"
+bower install
+'''
+
+      }
        stage('Test') {
 
             env.NODE_ENV = "test"
@@ -26,17 +76,12 @@ export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 export NVM_DIR="/var/jenkins_home/.nvm"
 source "$NVM_DIR/nvm.sh"
-npm prune
-npm install
 export DISPLAY=:99.0
 # sh -e /etc/init.d/xvfb start
 VFB_WHD=${XVFB_WHD:-1280x720x16}
 # Start Xvfb
-Xvfb :99 -ac -screen 0 $XVFB_WHD -nolisten tcp &
+Xvfb :99 -ac -screen 0 $XVFB_WHD &
 xvfb=$!
-npm install -g bower grunt-cli
-gem install sass
-bower install
 grunt test
 '''
             sh "kill -HUP `cat ${WORKSPACE}/mongopid`"

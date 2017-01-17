@@ -19,7 +19,7 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
-            sh "mongod --pidfile ${WORKSPACE}/mongopid --dbpath ${WORKSPACE}/data/db"
+            sh "mongod --pidfilepath ${WORKSPACE}/mongopid --dbpath ${WORKSPACE}/data/db"
             sh '''#!/bin/bash -l
 export PATH="$PATH:$HOME/.rvm/bin"
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"

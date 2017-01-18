@@ -80,7 +80,7 @@ node {
        stage('Deploy') {
 
             echo 'Push to Repo'
-            sh 'echo "./dockerPushToRepo.sh"'
+            sh './dockerPushToRepo.sh'
 
             echo 'ssh to web server and tell it to pull new image'
             sh 'echo ssh builder@balder.thalhalla.com /usr/local/bin/dockerRun.sh'

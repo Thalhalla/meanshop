@@ -1,4 +1,0 @@
-rvm 2.3@meanshop
-export rvm_install_on_use_flag=1
-export rvm_gemset_create_on_use_flag=1
-export rvm_make_flags="-j1"

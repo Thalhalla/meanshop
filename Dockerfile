@@ -11,4 +11,5 @@ ADD . /meanshop
 RUN npm install
 RUN npm install -g bower grunt-cli
 RUN bower install
-CMD ["/meanshop/dockerstart.sh"]
+COPY ./dockerstart.sh /dockerstart.sh
+CMD ["/dockerstart.sh"]

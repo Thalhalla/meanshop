@@ -3,7 +3,7 @@ lock '3.7.2'
 
 set :application, 'meanshop'
 set :repo_url, 'https://github.com/Thalhalla/meanshop.git'
-set :node_version, '6.9.2'
+set :node_version, '6.9.4'
 set :pty, true
 set :forward_agent, true
 set :linked_dirs, %w{node_modules}
@@ -43,8 +43,7 @@ namespace :deploy do
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
+      # within release_path do #   execute :rake, 'cache:clear'
       # end
     end
   end

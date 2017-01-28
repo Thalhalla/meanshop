@@ -61,7 +61,7 @@
 #   }
 server 'balder.thalhalla.com',
   user: 'deployer',
-  roles: %w{web app},
+  roles: %w{web app, db},
   primary: true,
   ssh_options: {
     keys: %w(~/.ssh/id_ecdsa),
@@ -69,7 +69,7 @@ server 'balder.thalhalla.com',
     auth_methods: %w(publickey)
   }
 
-set :default_env {
-  NODE_ENV: 'production',
-  path: /home/#{fetch(:user)}/.nvm/versions/node/#{fetch (:node_version)}/bin/:$PATH"
-}
+#set :default_env, {
+  #NODE_ENV: 'production',
+  #path: /home/#{fetch(:user)}/.nvm/versions/node/#{fetch (:node_version)}/bin/:$PATH"
+#}

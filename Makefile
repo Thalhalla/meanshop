@@ -42,7 +42,7 @@ testdocker:
 	-v $(TMP):/tmp \
 	-d \
 	-p $(PORT):80 \
-	-t $(TAG) bash -l -c 'node -v;npm -v; ruby -v; which sasss'
+	-t $(TAG) bash -l -c 'node -v;npm -v; ruby -v; which sass; /bin/bash'
 
 prod: PORT NAME TAG rm proddocker
 
@@ -74,7 +74,7 @@ rm: kill rm-image
 clean: rm
 
 enter:
-	docker exec -i -t `cat cid` /bin/bash
+	docker exec -i -t `cat cid` /bin/bash -l
 
 logs:
 	docker logs -f `cat cid`

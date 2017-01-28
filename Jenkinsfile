@@ -38,7 +38,7 @@ node {
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
             rvm list
-            gem install sass
+            gem install sass capistrano
             '''
       }
        stage('Bower Install') {

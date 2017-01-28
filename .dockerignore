@@ -1,3 +1,6 @@
+Dockerfile
+Jenkinsfile
+Makefile
 public
 node_modules
 .tmp

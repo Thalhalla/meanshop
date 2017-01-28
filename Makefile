@@ -14,7 +14,7 @@ help:
 build: NAME TAG builddocker
 
 # run a plain container
-run: PORT NAME TAG build rundocker
+run: PORT NAME TAG rm rundocker
 
 rundocker:
 	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
@@ -28,6 +28,36 @@ rundocker:
 	-d \
 	-p $(PORT):80 \
 	-t $(TAG)
+
+test: PORT NAME TAG rm testdocker
+
+testdocker:
+	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
+	$(eval NAME := $(shell cat NAME))
+	$(eval TAG := $(shell cat TAG))
+	$(eval PORT := $(shell cat PORT))
+	chmod 777 $(TMP)
+	@docker run --name=$(NAME) \
+	--cidfile="cid" \
+	-v $(TMP):/tmp \
+	-d \
+	-p $(PORT):80 \
+	-t $(TAG) bash -l -c 'node -v;npm -v; ruby -v; which sasss'
+
+prod: PORT NAME TAG rm proddocker
+
+proddocker:
+	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
+	$(eval NAME := $(shell cat NAME))
+	$(eval TAG := $(shell cat TAG))
+	$(eval PORT := $(shell cat PORT))
+	chmod 777 $(TMP)
+	@docker run --name=$(NAME) \
+	--cidfile="cid" \
+	-v $(TMP):/tmp \
+	-d \
+	-p $(PORT):80 \
+	-t $(TAG) '/meanshop/prodstart.sh'
 
 builddocker:
 	/usr/bin/time -v docker build -t `cat TAG` .
@@ -66,3 +96,8 @@ PORT:
 
 compose:
 	docker-compose up
+
+up: compose
+
+pull:
+	docker pull `cat TAG`

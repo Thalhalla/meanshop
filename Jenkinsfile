@@ -85,9 +85,6 @@ node {
             source "$NVM_DIR/nvm.sh"
             cap production deploy
             '''
-            sh 'rancher ps'
-            echo 'ssh to web server and tell it to pull new image'
-            sh 'echo ssh builder@balder.thalhalla.com /usr/local/bin/dockerRun.sh'
 
       }
        stage('Cleanup') {

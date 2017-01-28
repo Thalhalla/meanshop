@@ -3,6 +3,10 @@ lock '3.7.2'
 
 set :application, 'meanshop'
 set :repo_url, 'https://github.com/Thalhalla/meanshop.git'
+set :node_version, '6.9.2'
+set :pty, true
+set :forward_agent, true
+set :linked_dirs, %w{node_modules}
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp

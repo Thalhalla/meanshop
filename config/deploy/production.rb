@@ -68,3 +68,8 @@ server 'balder.thalhalla.com',
     forward_agent: false,
     auth_methods: %w(publickey)
   }
+
+set :default_env {
+  NODE_ENV: 'production',
+  path: /home/#{fetch(:user)}/.nvm/versions/node/#{fetch (:node_version)}/bin/:$PATH"
+}

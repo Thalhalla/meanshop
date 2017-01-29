@@ -1,6 +1,7 @@
 // Generated on 2015-08-21 using generator-angular-fullstack 3.0.0-rc4
 'use strict';
 
+
 module.exports = function (grunt) {
   var localConfig;
   try {

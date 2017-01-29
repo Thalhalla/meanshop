@@ -1,3 +1,3 @@
 #!/bin/bash -l
-cd /meanshop
-grunt serve
+cd /meanshop/current
+npm start

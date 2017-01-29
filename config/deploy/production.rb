@@ -60,7 +60,7 @@
 #     # password: 'please use keys'
 #   }
 server 'balder.thalhalla.com',
-  user: 'deployer',
+  user: 'git',
   roles: %w{web app, db},
   primary: true,
   ssh_options: {

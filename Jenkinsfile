@@ -74,17 +74,25 @@ node {
       }
        stage('Build Docker') {
 
-            sh "bash dockerBuild.sh"
+            if (env.BRANCH_NAME == "production") {
+               sh "bash dockerBuild.sh"
+            } else {
+               echo 'skiping dockerbuild'
+            }
 
       }
        stage('Deploy') {
 
+            if (env.BRANCH_NAME == "production") {
             echo 'Push to Repo'
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
             cap production deploy
             '''
+            } else {
+               echo 'skiping deploy'
+            }
 
       }
        stage('Cleanup') {

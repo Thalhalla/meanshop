@@ -21,7 +21,7 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
-            sh "bash node-cache.sh"
+            sh "bash node-sync.sh"
 
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
@@ -102,7 +102,7 @@ node {
             sh 'npm prune'
             sh 'rm node_modules -rf'
             echo 'done'
-            sh "bash node-sync.sh"
+            sh "bash node-cache.sh"
 
       }
     }

@@ -37,8 +37,6 @@ node {
       }
        stage('Gem Install') {
 
-            print "Environment will be : ${env.NODE_ENV}"
-
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"

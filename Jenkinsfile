@@ -21,10 +21,11 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
+            sh "bash node-cache.sh"
+
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
-            npm prune
             npm install -g yo bower grunt-cli
             npm install -g phantomjs-prebuilt --save-dev
             npm install
@@ -101,6 +102,7 @@ node {
             sh 'npm prune'
             sh 'rm node_modules -rf'
             echo 'done'
+            sh 'rsync -av node_modules /var/jenkins_home/'
 
       }
     }

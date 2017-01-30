@@ -19,6 +19,7 @@ node {
       }
        stage('NPM cache') {
 
+            print "Node Cache Sync : ${env.NODE_ENV}"
             sh "bash node-sync.sh"
 
       }

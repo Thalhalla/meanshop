@@ -4,5 +4,5 @@ if [ -d "$DIRECTORY" ]; then
     # Control will enter here if $DIRECTORY exists.
     echo 'Caching node_modules'
     #rsync --quiet -a node_modules $DIRECTORY/
-    rm node_modules
+    #rm node_modules
 fi

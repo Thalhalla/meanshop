@@ -17,11 +17,14 @@ node {
             checkout scm
 
       }
+       stage('NPM cache') {
+
+            sh "bash node-sync.sh"
+
+      }
        stage('NPM Install') {
 
             print "Environment will be : ${env.NODE_ENV}"
-
-            sh "bash node-sync.sh"
 
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
@@ -60,7 +63,9 @@ node {
             print "Environment will be : ${env.NODE_ENV}"
 
             sh "mkdir -p ${WORKSPACE}/data/db"
+
             sh "mongod --quiet --fork --noauth --pidfilepath ${WORKSPACE}/mongopid --logpath ${WORKSPACE}/data/log --dbpath ${WORKSPACE}/data/db"
+
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
@@ -70,7 +75,8 @@ node {
             xvfb=$!
             grunt test
             '''
-            sh "kill -HUP `cat ${WORKSPACE}/mongopid`"
+
+            sh "bash killmongo.sh"
 
       }
        stage('Build Docker') {
@@ -85,12 +91,15 @@ node {
        stage('Deploy') {
 
             if (env.BRANCH_NAME == "production") {
+
             echo 'Push to Repo'
+
             sh '''#!/bin/bash -l
             [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
             source "$NVM_DIR/nvm.sh"
             cap production deploy
             '''
+
             } else {
                echo 'skiping deploy'
             }
@@ -100,9 +109,9 @@ node {
 
             echo 'prune and cleanup'
             sh 'npm prune'
+            sh "bash node-cache.sh"
             sh 'rm node_modules -rf'
             echo 'done'
-            sh "bash node-cache.sh"
 
       }
     }
@@ -112,7 +121,7 @@ node {
 
         currentBuild.result = "FAILURE"
 
-        sh "kill -HUP `cat ${WORKSPACE}/mongopid`"
+        sh "bash killmongo.sh"
 
         throw err
     }

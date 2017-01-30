@@ -102,7 +102,7 @@ node {
             sh 'npm prune'
             sh 'rm node_modules -rf'
             echo 'done'
-            sh 'rsync -av node_modules /var/jenkins_home/'
+            sh "bash node-sync.sh"
 
       }
     }

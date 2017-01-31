@@ -6,5 +6,5 @@ if [ -d "$DIRECTORY" ]; then
     #ln -s $DIRECTORY
     #cp -a $DIRECTORY ./
     #rsync -av $DIRECTORY ./
-    #rsync --quiet -a $DIRECTORY ./
+    rsync --quiet -a $DIRECTORY ./
 fi

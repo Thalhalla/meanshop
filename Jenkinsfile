@@ -2,11 +2,6 @@
 
 node {
 
-node {
-  wrap([$class: 'Xvfb']) {
-    ... your steps here
-  }
-}
 
     git credentialsId: 'thalhallajenkins-github', url: 'https://github.com/Thalhalla/meanshop.git'
     currentBuild.result = "SUCCESS"

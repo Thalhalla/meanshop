@@ -61,6 +61,7 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
+            sh "rm -Rf ${WORKSPACE}/data"
             sh "mkdir -p ${WORKSPACE}/data/db"
 
             sh "mongod --quiet --fork --noauth --pidfilepath ${WORKSPACE}/mongopid --logpath ${WORKSPACE}/data/log --dbpath ${WORKSPACE}/data/db"

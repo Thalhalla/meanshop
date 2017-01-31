@@ -2,6 +2,11 @@
 
 node {
 
+node {
+  wrap([$class: 'Xvfb']) {
+    ... your steps here
+  }
+}
 
     git credentialsId: 'thalhallajenkins-github', url: 'https://github.com/Thalhalla/meanshop.git'
     currentBuild.result = "SUCCESS"
@@ -65,19 +70,13 @@ node {
 
             sh "killall mongod; mongod --quiet --fork --noauth --pidfilepath ${WORKSPACE}/mongopid --logpath ${WORKSPACE}/data/log --dbpath ${WORKSPACE}/data/db"
 
-            sh '''#!/bin/bash -l
-            [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
-            source "$NVM_DIR/nvm.sh"
-            killall Xvfb
-            rm -Rf /tmp/.X11-unix
-            #mkdir -p /tmp/.X11-unix
-            #chmod 1777 /tmp/.X11-unix
-            export DISPLAY=:99
-            XVFB_WHD=${XVFB_WHD:-1280x720x16}
-            Xvfb :99 -ac -screen 0 $XVFB_WHD -nolisten tcp &
-            xvfb=$!
-            grunt test
-            '''
+            wrap([$class: 'Xvfb']) {
+              sh '''#!/bin/bash -l
+              [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+              source "$NVM_DIR/nvm.sh"
+              grunt test
+              '''
+            }
 
             sh "bash killmongo.sh"
 

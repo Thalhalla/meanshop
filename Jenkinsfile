@@ -61,10 +61,9 @@ node {
 
             print "Environment will be : ${env.NODE_ENV}"
 
-            sh "rm -Rf ${WORKSPACE}/data"
-            sh "mkdir -p ${WORKSPACE}/data/db"
+            sh "mkdir -p ${WORKSPACE}/mongodata/db"
 
-            sh "mongod --quiet --fork --noauth --pidfilepath ${WORKSPACE}/mongopid --logpath ${WORKSPACE}/data/log --dbpath ${WORKSPACE}/data/db"
+            sh "mongod --quiet --fork --noauth --pidfilepath ${WORKSPACE}/mongopid --logpath ${WORKSPACE}/mongodata/log --dbpath ${WORKSPACE}/mongodata/db"
 
             wrap([$class: 'Xvfb']) {
               sh '''#!/bin/bash -l
@@ -111,6 +110,7 @@ node {
             sh 'npm prune'
             sh "bash node-cache.sh"
             sh 'rm node_modules -rf'
+            sh 'rm -rf mongodata'
             echo 'done'
 
       }

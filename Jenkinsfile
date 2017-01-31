@@ -63,7 +63,7 @@ node {
 
             sh "mkdir -p ${WORKSPACE}/data/db"
 
-            sh "killall -q mongod; mongod --quiet --fork --noauth --pidfilepath ${WORKSPACE}/mongopid --logpath ${WORKSPACE}/data/log --dbpath ${WORKSPACE}/data/db"
+            sh "mongod --quiet --fork --noauth --pidfilepath ${WORKSPACE}/mongopid --logpath ${WORKSPACE}/data/log --dbpath ${WORKSPACE}/data/db"
 
             wrap([$class: 'Xvfb']) {
               sh '''#!/bin/bash -l

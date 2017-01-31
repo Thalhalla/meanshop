@@ -70,8 +70,8 @@ node {
             source "$NVM_DIR/nvm.sh"
             killall Xvfb
             rm -Rf /tmp/.X11-unix
-            mkdir -p /tmp/.X11-unix
-            chmod 1777 /tmp/.X11-unix
+            #mkdir -p /tmp/.X11-unix
+            #chmod 1777 /tmp/.X11-unix
             export DISPLAY=:99
             XVFB_WHD=${XVFB_WHD:-1280x720x16}
             Xvfb :99 -ac -screen 0 $XVFB_WHD -nolisten tcp &

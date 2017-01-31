@@ -69,6 +69,7 @@ node {
               sh '''#!/bin/bash -l
               [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
               source "$NVM_DIR/nvm.sh"
+              npm install
               node -v
               which grunt
               grunt test

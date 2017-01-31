@@ -17,12 +17,12 @@ node {
             checkout scm
 
       }
-       stage('NPM cache') {
+       //stage('NPM cache') {
 
-            print "Node Cache Sync : ${env.NODE_ENV}"
-            sh "bash node-sync.sh"
+            //print "Node Cache Sync : ${env.NODE_ENV}"
+            //sh "bash node-sync.sh"
 
-      }
+      //}
        stage('NPM Install') {
 
             print "Environment will be : ${env.NODE_ENV}"

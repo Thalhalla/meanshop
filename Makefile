@@ -14,17 +14,19 @@ help:
 build: NAME TAG builddocker
 
 # run a plain container
-run: PORT NAME TAG rm rundocker
+run: BRANCH PORT NAME TAG rm rundocker
 
 rundocker:
 	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
 	$(eval NAME := $(shell cat NAME))
 	$(eval TAG := $(shell cat TAG))
+	$(eval BRANCH := $(shell cat BRANCH))
 	$(eval PORT := $(shell cat PORT))
 	chmod 777 $(TMP)
 	@docker run --name=$(NAME) \
 	--cidfile="cid" \
 	-v $(TMP):/tmp \
+	-e BRANCH=$(BRANCH) \
 	-d \
 	-p $(PORT):80 \
 	-t $(TAG)
@@ -87,6 +89,11 @@ NAME:
 TAG:
 	@while [ -z "$$TAG" ]; do \
 		read -r -p "Enter the tag you wish to associate with this container [TAG]: " TAG; echo "$$TAG">>TAG; cat TAG; \
+	done ;
+
+BRANCH:
+	@while [ -z "$$BRANCH" ]; do \
+		read -r -p "Enter the branch you wish to work with e.g. 'master' [BRANCH]: " BRANCH; echo "$$BRANCH">>BRANCH; cat BRANCH; \
 	done ;
 
 PORT:

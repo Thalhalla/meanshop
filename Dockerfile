@@ -1,7 +1,7 @@
 FROM node:boron
 MAINTAINER Josh Cox <josh 'at' webhosting.coop>
 
-ENV MEANSHOP_UPDATED 20170127
+ENV MEANSHOP_UPDATED 20170318
 ENV LANG en_US.UTF-8
 
 RUN DEBIAN_FRONTEND=noninteractive \
@@ -19,6 +19,9 @@ echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers && \
 apt-get -y autoremove && \
 apt-get clean && \
 rm -Rf /var/lib/apt/lists/*
+
+# Bundle app source
+ADD . /meanshop
 
 RUN mkdir -p /meanshop/client/bower_components && \
 chown -R meanshop. /meanshop && \
@@ -38,9 +41,6 @@ rvm use --default $RUBY_TARGET && \
 source /home/meanshop/.rvm/scripts/rvm && \
 gem install sass && \
 sudo npm install -g bower grunt-cli yo gulp"
-
-# Bundle app source
-ADD . /meanshop
 
 USER root
 RUN chown -R meanshop. /meanshop

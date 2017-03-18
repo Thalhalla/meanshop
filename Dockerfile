@@ -42,7 +42,6 @@ sudo npm install -g bower grunt-cli yo gulp"
 # Bundle app source
 ADD . /meanshop
 
-RUN bash -l -c 'gem install sass'
 USER root
 RUN chown -R meanshop. /meanshop
 RUN SUDO_FORCE_REMOVE=yes apt-get remove -qqy sudo

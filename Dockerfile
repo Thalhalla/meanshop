@@ -45,4 +45,5 @@ USER root
 RUN chown -R meanshop. /meanshop
 RUN SUDO_FORCE_REMOVE=yes apt-get remove -qqy sudo
 USER meanshop
-CMD ["/meanshop/dockerstart.sh"]
+COPY dockerstart.sh /home/meanshop/dockerstart.sh
+CMD ["/home/meanshop/dockerstart.sh"]

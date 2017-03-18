@@ -21,7 +21,7 @@ apt-get clean && \
 rm -Rf /var/lib/apt/lists/*
 
 # Bundle app source
-ADD . /meanshop
+COPY . /meanshop
 
 RUN mkdir -p /meanshop/client/bower_components && \
 chown -R meanshop. /meanshop && \

@@ -20,8 +20,9 @@ apt-get -y autoremove && \
 apt-get clean && \
 rm -Rf /var/lib/apt/lists/*
 
-RUN mkdir -p /meanshop/client/bower_components && \
-cd /; git clone https://github.com/Thalhalla/meanshop.git && \
+RUN cd / && \
+git clone https://github.com/Thalhalla/meanshop.git && \
+mkdir -p /meanshop/client/bower_components && \
 chown -R meanshop. /meanshop && \
 mkdir -p /home/meanshop && \
 chown -R meanshop. /home/meanshop

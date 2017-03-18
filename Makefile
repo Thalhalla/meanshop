@@ -108,3 +108,9 @@ up: compose
 
 pull:
 	docker pull `cat TAG`
+
+update:
+	rm -Rf nginx/client
+	rm -Rf node/server
+	cp -a client nginx/
+	cp -a server node/

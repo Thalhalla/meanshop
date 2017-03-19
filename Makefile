@@ -31,7 +31,7 @@ rundocker:
 	-e BRANCH=$(BRANCH) \
 	-d \
 	--link meanshop-meango:meango \
-	-p $(PORT):80 \
+	-p $(PORT):8080 \
 	-t $(TAG)
 
 test: PORT NAME TAG rm testdocker
@@ -142,10 +142,11 @@ node.cid: meango.cid MEANSHOPTMP
 	-v $(MEANSHOPTMP):/meanshop \
 	--link meanshop-meango:meango \
 	-e BRANCH=$(BRANCH) \
+	-p 9000:9000 \
 	-d \
 	-t $(TAG):node
 
-nodetest: clean node.cid logsnode
+nodetest: clean node.cid nginx.cid logsnode
 
 nd: nodetest
 
@@ -168,6 +169,7 @@ nginx.cid:
 	--link meanshop-node:meanshop-node \
 	-v $(TMP):/tmp \
 	-e BRANCH=$(BRANCH) \
+	-p $(PORT):80 \
 	-d \
 	-t $(TAG):nginx
 
@@ -195,3 +197,7 @@ meango.cid: MEANGOTMP
 tmpcleaner:
 	rm MEANSHOPTMP
 	rm MEANGOTMP
+
+serve:
+	sudo systemctl start mongodb
+	grunt serve

@@ -1,9 +1,7 @@
 version: '2'
 services:
   meanshop:
-    image: nginx:alpine
-  meanshop-node:
-    image: thalhalla/meanshop
+    image: thalhalla/meanshop:nginx
     labels:
       io.rancher.scheduler.affinity:host_label: ${host_label}
       io.rancher.container.hostname_override: container_name
@@ -13,14 +11,21 @@ services:
       traefik.alias: ${MEANSHOP_HOST}
       traefik.domain: ${MEANSHOP_DOMAIN}
       traefik.acme: true
-      traefik.port: 7000
-    command:
-      - "${MEANSHOP_COMMAND}"
+      traefik.port: 80
+    volumes_from:
+      - meanshop-data
+    environment:
+      - BRANCH=${BRANCH}
+  meanshop-node:
+    image: thalhalla/meanshop:node
+    labels:
+      io.rancher.sidekicks: meanshop-data
     volumes_from:
       - meanshop-data
     environment:
       - PORT=7000
       - MONGODB_DB_URL="mongodb://meango-cluster/meanshop"
+      - BRANCH=${BRANCH}
   meanshop-data:
     image: busybox
     labels:

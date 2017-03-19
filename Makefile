@@ -13,8 +13,10 @@ help:
 
 build: NAME TAG builddocker
 
+r: build run logs
+
 # run a plain container
-run: BRANCH PORT NAME TAG rm rundocker
+run: BRANCH PORT NAME TAG rm meango.cid rundocker
 
 rundocker:
 	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
@@ -28,6 +30,7 @@ rundocker:
 	-v $(TMP):/tmp \
 	-e BRANCH=$(BRANCH) \
 	-d \
+	--link meanshop-meango:meango \
 	-p $(PORT):80 \
 	-t $(TAG)
 
@@ -66,10 +69,19 @@ builddocker:
 
 kill:
 	-@docker kill `cat cid`
+	-@docker kill `cat node.cid`
+	-@docker kill `cat nginx.cid`
+	-@docker kill `cat meango.cid`
 
 rm-image:
 	-@docker rm `cat cid`
+	-@docker rm `cat node.cid`
+	-@docker rm `cat nginx.cid`
+	-@docker rm `cat meango.cid`
 	-@rm cid
+	-@rm node.cid
+	-@rm nginx.cid
+	-@rm meango.cid
 
 rm: kill rm-image
 
@@ -79,7 +91,7 @@ enter:
 	docker exec -i -t `cat cid` /bin/bash -l
 
 logs:
-	docker logs -f `cat cid`
+	@docker logs -f `cat cid`
 
 NAME:
 	@while [ -z "$$NAME" ]; do \
@@ -114,3 +126,72 @@ update:
 	rm -Rf node/server
 	cp -a client nginx/
 	cp -a server node/
+
+node.cid: meango.cid MEANSHOPTMP
+	/usr/bin/time -v docker build -t `cat TAG`:node node/
+	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
+	$(eval NAME := $(shell cat NAME))
+	$(eval MEANSHOPTMP := $(shell cat MEANSHOPTMP))
+	$(eval TAG := $(shell cat TAG))
+	$(eval BRANCH := $(shell cat BRANCH))
+	$(eval PORT := $(shell cat PORT))
+	chmod 777 $(TMP)
+	@docker run --name=$(NAME)-node \
+	--cidfile="node.cid" \
+	-v $(TMP):/tmp \
+	-v $(MEANSHOPTMP):/meanshop \
+	--link meanshop-meango:meango \
+	-e BRANCH=$(BRANCH) \
+	-d \
+	-t $(TAG):node
+
+nodetest: clean node.cid logsnode
+
+nd: nodetest
+
+enternode:
+	docker exec -i -t `cat node.cid` /bin/bash -l
+
+logsnode:
+	@docker logs -f `cat node.cid`
+
+nginx.cid:
+	/usr/bin/time -v docker build -t `cat TAG`:nginx nginx/
+	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
+	$(eval NAME := $(shell cat NAME))
+	$(eval TAG := $(shell cat TAG))
+	$(eval BRANCH := $(shell cat BRANCH))
+	$(eval PORT := $(shell cat PORT))
+	chmod 777 $(TMP)
+	@docker run --name=$(NAME)-nginx \
+	--cidfile="nginx.cid" \
+	--link meanshop-node:meanshop-node \
+	-v $(TMP):/tmp \
+	-e BRANCH=$(BRANCH) \
+	-d \
+	-t $(TAG):nginx
+
+enternginx:
+	docker exec -i -t `cat nginx.cid` /bin/bash -l
+
+logsnginx:
+	@docker logs -f `cat nginx.cid`
+
+MEANGOTMP:
+	echo `mktemp -d --suffix=.meango`>MEANGOTMP
+
+MEANSHOPTMP:
+	echo `mktemp -d --suffix=.meanshop`>MEANSHOPTMP
+
+meango.cid: MEANGOTMP
+	$(eval MEANGOTMP := $(shell cat MEANGOTMP))
+	$(eval NAME := $(shell cat NAME))
+	@docker run --name=$(NAME)-meango \
+	--cidfile="meango.cid" \
+	-v $(MEANGOTMP):/data/db \
+	-d \
+	-t mongo:3.2
+
+tmpcleaner:
+	rm MEANSHOPTMP
+	rm MEANGOTMP

@@ -1,6 +1,6 @@
 .catalog:
   name: "meanshop"
-  version: "0.2.8"
+  version: "0.3.9"
   description: "Library service powered by Meanshop"
   uuid: meanshop-0
   minimum_rancher_version: v0.51.0
@@ -21,13 +21,19 @@
         description: "COMMAND to use for the MEANSHOP server"
         label: "MEANSHOP COMMAND"
         required: true
-        default: "/meanshop/dockerstart.sh"
+        default: "/home/meanshop/bootstrap.sh"
         type: "string"
       - variable: "VOLUME_DRIVER"
         description: "The VOLUME driver to associate with this server (convoy-nfs,convoy-efs,convoy-ebs)"
         label: "VOLUME Driver"
         required: true
         default: "convoy-nfs"
+        type: "string"
+      - variable: "BRANCH"
+        description: "The branch of meanshop to work with"
+        label: "Branch"
+        required: false
+        default: "master"
         type: "string"
       - variable: "VOLUME_NAME"
         description: "The VOLUME name to associate with this server"
@@ -65,17 +71,27 @@ meanshop:
     # For TCP, request_line needs to be '' or not shown
     # TCP Example:
     # request_line: ''
-    request_line: GET / HTTP/1.0
+    # request_line: GET / HTTP/1.0
+    request_line: ''
     # Interval is measured in milliseconds
     interval: 30000
     initializing_timeout: 360000
     unhealthy_threshold: 9
     # Strategy for what to do when unhealthy
     # In this service, Rancher will recreate any unhealthy containers
-    strategy: recreate
+    strategy: none
     healthy_threshold: 2
     # Response timeout is measured in milliseconds
     response_timeout: 9000
+
+meanshop-node:
+  scale: 1
+  retain_ip: true
+
+meango-base:
+  scale: 1
+  retain_ip: true
+
 meango-cluster:
   scale: 1
   retain_ip: true

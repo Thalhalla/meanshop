@@ -18,11 +18,11 @@ services:
       io.rancher.container.pull_image: always
     environment:
       - PORT=7000
-      - MONGODB_DB_URL="mongodb://meango-cluster/meanshop"
-  meango-cluster:
+      - MONGODB_DB_URL="mongodb://meango/meanshop"
+  meango:
     restart: always
     environment:
-      - MONGO_SERVICE_NAME=meango-cluster
+      - MONGO_SERVICE_NAME=meango
     tty: true
     entrypoint: /opt/rancher/bin/entrypoint.sh
     command:

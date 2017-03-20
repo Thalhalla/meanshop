@@ -1,10 +1,18 @@
 FROM node:boron-alpine
 
+ENV BUILD_PACKAGES bash curl-dev ruby-dev build-base git
+ENV RUBY_PACKAGES ruby-rdoc ruby ruby-io-console ruby-bundler
+
 RUN apk update && apk upgrade && \
-apk add bash git && \
-adduser -S meanshop && \
+apk add $BUILD_PACKAGES && \
+apk add $RUBY_PACKAGES && \
+rm -rf /var/cache/apk/* && \
 mkdir -p /home/meanshop && \
-chown -R meanshop. /home/meanshop
+adduser -S meanshop && \
+chown -R meanshop. /home/meanshop && \
+echo 'gem is bitching but still successfully installs sass' && \
+gem install sass 2>/dev/null; echo 0 && \
+npm install -g bower grunt-cli
 
 WORKDIR /meanshop
 # Bundle app source

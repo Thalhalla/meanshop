@@ -14,6 +14,6 @@ else
 fi
 
 npm install
-npm install -g bower grunt-cli
 bower install
+grunt build
 npm start

@@ -15,6 +15,7 @@ services:
     image: thalhalla/meanshop:node
     labels:
       io.rancher.scheduler.affinity:host_label: ${host_label}
+      io.rancher.container.pull_image: always
     environment:
       - PORT=7000
       - MONGODB_DB_URL="mongodb://meango-cluster/meanshop"
@@ -32,6 +33,7 @@ services:
       io.rancher.scheduler.affinity:host_label: ${host_label}
       io.rancher.container.hostname_override: container_name
       io.rancher.sidekicks: meango-base, meango-datavolume
+      io.rancher.container.pull_image: always
     volumes_from:
       - meango-datavolume
       - meango-base
@@ -42,6 +44,7 @@ services:
       io.rancher.scheduler.affinity:host_label: ${host_label}
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
+      io.rancher.container.pull_image: always
     image: rancher/mongodb-conf:v0.1.0
     stdin_open: true
     entrypoint: /bin/true
@@ -50,6 +53,7 @@ services:
       io.rancher.scheduler.affinity:host_label: ${host_label}
       io.rancher.container.hostname_override: container_name
       io.rancher.container.start_once: true
+      io.rancher.container.pull_image: always
     volume_driver: ${VOLUME_DRIVER}
     volumes:
       - ${DB_VOLUME_NAME}:/data/db

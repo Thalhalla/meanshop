@@ -27,7 +27,6 @@ rundocker:
 	chmod 777 $(TMP)
 	@docker run --name=$(NAME) \
 	--cidfile="cid" \
-	-v $(TMP):/tmp \
 	-e BRANCH=$(BRANCH) \
 	-d \
 	--link meanshop-meango:meango \
@@ -70,16 +69,19 @@ builddocker:
 kill:
 	-@docker kill `cat cid`
 	-@docker kill `cat node.cid`
+	-@docker kill `cat prod.cid`
 	-@docker kill `cat nginx.cid`
 	-@docker kill `cat meango.cid`
 
 rm-image:
 	-@docker rm `cat cid`
 	-@docker rm `cat node.cid`
+	-@docker rm `cat prod.cid`
 	-@docker rm `cat nginx.cid`
 	-@docker rm `cat meango.cid`
 	-@rm cid
 	-@rm node.cid
+	-@rm prod.cid
 	-@rm nginx.cid
 	-@rm meango.cid
 
@@ -138,8 +140,6 @@ node.cid: meango.cid MEANSHOPTMP
 	chmod 777 $(TMP)
 	@docker run --name=$(NAME)-node \
 	--cidfile="node.cid" \
-	-v $(TMP):/tmp \
-	-v $(MEANSHOPTMP):/meanshop \
 	--link meanshop-meango:meango \
 	-e BRANCH=$(BRANCH) \
 	-p 9000:9000 \
@@ -152,6 +152,9 @@ nd: nodetest
 
 enternode:
 	docker exec -i -t `cat node.cid` /bin/bash -l
+
+logsprod:
+	@docker logs -f `cat prod.cid`
 
 logsnode:
 	@docker logs -f `cat node.cid`

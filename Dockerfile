@@ -1,7 +1,7 @@
 FROM node:boron-alpine
 
 
-ENV BUILD_PACKAGES bash curl-dev ruby-dev build-base git
+ENV BUILD_PACKAGES bash curl-dev ruby-dev build-base git libpng-dev
 ENV RUBY_PACKAGES ruby-rdoc ruby ruby-io-console ruby-bundler
 
 RUN apk update && apk upgrade && \

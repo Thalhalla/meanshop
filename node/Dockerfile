@@ -21,10 +21,10 @@ chown -R meanshop. /meanshop
 WORKDIR /meanshop
 
 RUN npm install && \
-bower install
-RUN grunt build
+bower install && \
+grunt build
 
 #USER meanshop
 #CMD ["npm", "start"]
-COPY ./node/start.sh /start.sh
+COPY start.sh /start.sh
 CMD ["/start.sh"]

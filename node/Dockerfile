@@ -24,6 +24,7 @@ RUN npm install && \
 bower install
 RUN grunt build
 
-#CMD ["/home/meanshop/bootstrap.sh"]
 #USER meanshop
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
+COPY ./node/start.sh /start.sh
+CMD ["/start.sh"]

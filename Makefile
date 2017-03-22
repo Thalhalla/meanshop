@@ -130,7 +130,7 @@ update:
 	cp -a server node/
 
 node.cid: meango.cid MEANSHOPTMP
-	/usr/bin/time -v docker build -t `cat TAG`:node node/
+	/usr/bin/time -v docker build -t `cat TAG`:node -f node.Dockerfile
 	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
 	$(eval NAME := $(shell cat NAME))
 	$(eval MEANSHOPTMP := $(shell cat MEANSHOPTMP))
@@ -160,7 +160,7 @@ logsnode:
 	@docker logs -f `cat node.cid`
 
 nginx.cid:
-	/usr/bin/time -v docker build -t `cat TAG`:nginx nginx/
+	/usr/bin/time -v docker build -t `cat TAG`:nginx -f nginx.Dockerfile
 	$(eval TMP := $(shell mktemp -d --suffix=DOCKERTMP))
 	$(eval NAME := $(shell cat NAME))
 	$(eval TAG := $(shell cat TAG))

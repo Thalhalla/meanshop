@@ -11,7 +11,12 @@ if [ ! -z ${MEANGO_DEBUG+x} ]
     env
     cat /etc/hosts
     echo "meango host = $MEANGO_HOST"
-    echo '>>>>>>>>>>>>END_DEBUG<<<<<<<<<<<<<<<<<<'
+    if [[ ${MEANGO_DEBUG} == "du" ]]; then
+      echo '>>>>HOGS in meanshop are:<<<<'
+      du -sh /meanshop/*
+      echo '<<<<<<<<<END HOGS>>>>>>>>>'
+    fi
+    echo '>>>>>>>>>>>>>>>>>END_DEBUG<<<<<<<<<<<<<<<<<<'
 fi
 
 npm start

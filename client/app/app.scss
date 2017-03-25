@@ -25,3 +25,8 @@ $fa-font-path: "../bower_components/font-awesome/fonts";
 @import '../components/modal/modal.scss';
 @import '../components/sidebar/sidebar.scss';
 // endinjector
+
+html {
+  color: white;
+  background-color: black;
+}

@@ -54,28 +54,28 @@ Catalog
   .then(function() {
     return Product.create({
       title: 'CS:GO',
-      imageUrl: '/assets/uploads/csgo.png',
+      imageUrl: '/assets/images/csgo.png',
       price: 15,
       stock: 999,
       categories: [home],
       description: 'Counter Strike : Global Offense'
     }, {
       title: 'Team Fortress 2',
-      imageUrl: '/assets/uploads/tf2.png',
+      imageUrl: '/assets/images/tf2.png',
       price: 8,
       stock: 999,
       categories: [books],
       description: 'Team Fortress 2 - the classic FPS'
     }, {
       title: 'Arma3',
-      imageUrl: '/assets/uploads/arma3.png',
+      imageUrl: '/assets/images/arma3.png',
       price: 16,
       stock: 999,
       categories: [clothing],
       description: 'Arma3 the military simulator'
     }, {
       title: '7 days to die',
-      imageUrl: '/assets/uploads/7dtd.png',
+      imageUrl: '/assets/images/7dtd.png',
       price: 18,
       stock: 999,
       categories: [home],

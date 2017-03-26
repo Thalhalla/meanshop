@@ -1,5 +1,12 @@
+$color: #33dd00;
+$color2: #11bb00;
+$linkcolor: #33ff33;
+$bgcolor: black;
+$bgcolor2: rgba(14, 0, 14, 0.5);
+$bgcolor3: rgba(42, 0, 42, 0.7);
+
 .drop-box {
-  background: #F8F8F8;
+  background: $bgcolor2;
   border: 5px dashed #DDD;
   width: 170px;
   height: 170px;
@@ -10,18 +17,23 @@
 }
 
 .drop-box.dragover {
-  border: 5px dashed blue;
+  border: 5px dashed $linkcolor;
 }
 
 .drop-box.dragover-err {
-  border: 5px dashed red;
+  border: 5px dashed $linkcolor;
 }
 
 .productbox {
-  background-color:#ffffff;
+  background-color:$bgcolor2;
   padding:10px;
   margin-bottom:10px;
-  box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px $bgcolor3;
+}
+
+.thumbnail {
+  color:$color;
+  background-color:$bgcolor2;
 }
 
 .producttitle {
@@ -30,7 +42,7 @@
 }
 
 .productprice {
-  border-top:1px solid #dadada;
+  border-top:1px solid $color;
   padding-top:5px;
 }
 
@@ -48,4 +60,8 @@
   .thumbnail img{
     height: 240px;
   }
+}
+.productdescription {
+  height: 315px;
+  overflow: auto;
 }

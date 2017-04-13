@@ -53,26 +53,33 @@ Catalog
   })
   .then(function() {
     return Product.create({
-      title: 'MEAN eCommerce Book',
-      imageUrl: '/assets/uploads/meanbook.jpg',
-      price: 25,
-      stock: 250,
-      categories: [books],
-      description: 'Build a powerful e-commerce application quickly with MEAN, a leading full-JavaScript stack. It takes you step-by-step from creating a real-world store to managing details such as authentication, shopping carts, payment, scalability and more.'
-    }, {
-      title: 'T-shirt',
-      imageUrl: '/assets/uploads/meantshirt.jpg',
+      title: 'CS:GO',
+      imageUrl: '/assets/images/csgo.png',
       price: 15,
-      stock: 100,
-      categories: [clothing],
-      description: 'T-shirt with the MEAN stack logo'
-    }, {
-      title: 'Coffee Mug',
-      imageUrl: '/assets/uploads/meanmug.jpg',
-      price: 8,
-      stock: 50,
+      stock: 999,
       categories: [home],
-      description: 'Convert coffee into MEAN code'
+      description: 'Counter Strike : Global Offense'
+    }, {
+      title: 'Team Fortress 2',
+      imageUrl: '/assets/images/tf2.png',
+      price: 8,
+      stock: 999,
+      categories: [books],
+      description: 'Team Fortress 2 - the classic FPS'
+    }, {
+      title: 'Arma3',
+      imageUrl: '/assets/images/arma3.png',
+      price: 16,
+      stock: 999,
+      categories: [clothing],
+      description: 'Arma3 the military simulator'
+    }, {
+      title: '7 days to die',
+      imageUrl: '/assets/images/7dtd.png',
+      price: 18,
+      stock: 999,
+      categories: [home],
+      description: '7 days to die the survival horror game that defined the genre'
     });
   })
   .then(function () {

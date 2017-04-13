@@ -14,17 +14,13 @@ echo 'gem is complaining but still successfully installs sass' && \
 gem install sass 2>/dev/null; echo 0 && \
 npm install -g bower grunt-cli
 
-
-RUN cd /; \
-git clone https://github.com/Thalhalla/meanshop.git && \
-chown -R meanshop. /meanshop
+COPY . /meanshop
+RUN chown -R meanshop. /meanshop
 WORKDIR /meanshop
 
 RUN npm install && \
 bower install && \
 grunt build
 
-#USER meanshop
-#CMD ["npm", "start"]
 COPY node/start.sh /start.sh
 CMD ["/start.sh"]

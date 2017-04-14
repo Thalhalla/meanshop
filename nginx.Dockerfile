@@ -5,6 +5,6 @@ apk upgrade && \
 apk add openssl && \
 rm -rf /var/cache/apk/*
 
-COPY nginx /config-nginx
+COPY nginx /assets
 COPY client /meanshop/current/dist/public
-CMD ["/config-nginx/start.sh"]
+CMD ["/assets/start.sh"]

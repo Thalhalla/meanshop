@@ -204,3 +204,6 @@ tmpcleaner:
 serve:
 	sudo systemctl start mongodb
 	grunt serve
+
+ab:
+	ab -n 1000 -c 100 https://shop.gaianysus.com/

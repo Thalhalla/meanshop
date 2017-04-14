@@ -8,8 +8,5 @@ if [ ! -z ${NGINX_PASS+x} ]
 else
     cp /assets/meanshop.conf /etc/nginx/conf.d/default.conf
 fi
-if [ ! -z ${NGINX_HTPASSWD+x} ]
-    echo "$NGINX_HTPASSWD">>/etc/nginx/.htpasswd
-fi
 
 nginx -g 'daemon off;'

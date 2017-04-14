@@ -2,7 +2,7 @@ FROM nginx:alpine
 
 RUN apk update && \
 apk upgrade && \
-apk add openssl && \
+apk add openssl bash && \
 rm -rf /var/cache/apk/*
 
 COPY nginx /assets

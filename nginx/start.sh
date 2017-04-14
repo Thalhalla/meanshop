@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/bin/bash
 
 if [ ! -z ${NGINX_PASS+x} ]
   then

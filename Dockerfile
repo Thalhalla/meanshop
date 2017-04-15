@@ -18,7 +18,6 @@ gpasswd -a meanshop sudo && \
 echo '%sudo ALL=(ALL) NOPASSWD:ALL'>> /etc/sudoers && \
 apt-get -y autoremove && \
 apt-get clean && \
-RUN SUDO_FORCE_REMOVE=yes apt-get remove -qqy sudo && \
 rm -Rf /var/lib/apt/lists/*
 
 COPY . /meanshop

@@ -41,7 +41,7 @@ gem install sass && \
 sudo npm install -g bower grunt-cli yo gulp"
 
 USER root
-RUN chown -R meanshop. /meanshop
-RUN SUDO_FORCE_REMOVE=yes apt-get remove -qqy sudo
+RUN chown -R meanshop. /meanshop \
+&& SUDO_FORCE_REMOVE=yes apt-get remove -qqy sudo
 USER meanshop
 CMD ["npm", "start"]

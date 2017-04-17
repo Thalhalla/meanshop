@@ -21,9 +21,9 @@ fi
 
 if [ ! -z ${FACEBOOK_ID+x} ]
   then
-    $LCLENVPATH = '/meango/server/config'
-    $DEST_SCRIPT = "$LCLENVPATH/local.env.js"
-    $TEMPLATE_SCRIPT = "$LCLENVPATH/local.env.sample.js.template"
+    export LCLENVPATH = '/meango/server/config'
+    export DEST_SCRIPT = "$LCLENVPATH/local.env.js"
+    export TEMPLATE_SCRIPT = "$LCLENVPATH/local.env.sample.js.template"
 
     cp $TEMPLATE_SCRIPT $DEST_SCRIPT
     sed -i "s/REPLACEME_FACEBOOK_ID/$FACEBOOK_ID/" $DEST_SCRIPT
@@ -35,7 +35,7 @@ if [ ! -z ${FACEBOOK_ID+x} ]
     sed -i "s/REPLACEME_BRAINTREE_MERCHANT_ID/$BRAINTREE_MERCHANT_ID/" $DEST_SCRIPT
     sed -i "s/REPLACEME_BRAINTREE_PUBLIC_KEY/$BRAINTREE_PUBLIC_KEY/" $DEST_SCRIPT
     sed -i "s/REPLACEME_BRAINTREE_PRIVATE_KEY/$BRAINTREE_PRIVATE_KEY/" $DEST_SCRIPT
-    
+
 fi
 
 npm start

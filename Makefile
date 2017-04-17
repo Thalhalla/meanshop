@@ -140,7 +140,7 @@ node.cid: meango.cid MEANSHOPTMP
 	chmod 777 $(TMP)
 	@docker run --name=$(NAME)-node \
 	--cidfile="node.cid" \
-	--link meanshop-meango:meango \
+	--link $(NAME)-meango:meango \
 	-e BRANCH=$(BRANCH) \
 	-p 9000:9000 \
 	-d \

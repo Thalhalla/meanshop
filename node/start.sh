@@ -19,8 +19,8 @@ if [ ! -z ${MEANGO_DEBUG+x} ]
     echo '>>>>>>>>>>>>>>>>>END_DEBUG<<<<<<<<<<<<<<<<<<'
 fi
 
-if [ ! -z ${BRAINTREE_MERCHANT_ID+x} ]
-  then
+# if [ ! -z ${BRAINTREE_MERCHANT_ID+x} ]
+#  then
 
 # NOTE!
 # I am nullifying this as it appears the code already uses the env vars
@@ -43,6 +43,6 @@ if [ ! -z ${BRAINTREE_MERCHANT_ID+x} ]
 #    sed -i "s/REPLACEME_BRAINTREE_PUBLIC_KEY/$BRAINTREE_PUBLIC_KEY/" $DEST_SCRIPT
 #    sed -i "s/REPLACEME_BRAINTREE_PRIVATE_KEY/$BRAINTREE_PRIVATE_KEY/" $DEST_SCRIPT
 
-fi
+# fi
 
 npm start

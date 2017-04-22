@@ -1,7 +1,8 @@
 FROM node:boron-alpine
 
-ENV BUILD_PACKAGES bash curl-dev ruby-dev build-base git libpng-dev
-ENV RUBY_PACKAGES ruby-rdoc ruby ruby-io-console ruby-bundler
+ENV THALHALLA_MEANSHOP=20170421 \
+BUILD_PACKAGES='bash curl-dev ruby-dev build-base git libpng-dev' \
+RUBY_PACKAGES='ruby-rdoc ruby ruby-io-console ruby-bundler'
 
 RUN apk update && apk upgrade && \
 apk add $BUILD_PACKAGES && \
